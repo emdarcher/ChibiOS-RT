@@ -46,4 +46,6 @@ void __early_init(void) {
  * Board-specific initialization code.
  */
 void boardInit(void) {
+
+
 }
