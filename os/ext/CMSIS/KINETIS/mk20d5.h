@@ -200,6 +200,18 @@ typedef struct
   __IO uint8_t  CHCFG[4];
 } DMAMUX_TypeDef;
 
+/** PIT - Peripheral register structure */
+typedef struct  {
+  __IO uint32_t MCR;             /* PIT Module Control Register */
+       uint8_t  RESERVED0[252];
+  struct PIT_CHANNEL {
+    __IO uint32_t LDVAL;         /* Timer Load Value Register */
+    __IO uint32_t CVAL;          /* Current Timer Value Register */
+    __IO uint32_t TCTRL;         /* Timer Control Register */
+    __IO uint32_t TFLG;          /* Timer Flag Register */
+  } CHANNEL[4];
+} PIT_TypeDef;
+
 typedef struct
 {
   __IO uint32_t SC;         /* Status and Control */
@@ -385,6 +397,13 @@ typedef struct
 
 typedef struct
 {
+  __IO uint8_t  LVDSC1;
+  __IO uint8_t  LVDSC2;
+  __IO uint8_t  REGSC;
+} PMC_TypeDef;
+
+typedef struct
+{
   __IO uint16_t STCTRLH;
   __IO uint16_t STCTRLL;
   __IO uint16_t TOVALH;
@@ -493,6 +512,7 @@ typedef struct {
 #define DMA_BASE                ((uint32_t)0x40008100)
 #define DMAMUX_BASE             ((uint32_t)0x40021000)
 #define SPI0_BASE               ((uint32_t)0x4002C000)
+#define PIT_BASE                ((uint32_t)0x40037000)
 #define FTM0_BASE               ((uint32_t)0x40038000)
 #define FTM1_BASE               ((uint32_t)0x40039000)
 #define ADC0_BASE               ((uint32_t)0x4003B000)
@@ -513,6 +533,7 @@ typedef struct {
 #define UART2_BASE              ((uint32_t)0x4006C000)
 #define USBOTG_BASE             ((uint32_t)0x40072000)
 #define LLWU_BASE               ((uint32_t)0x4007C000)
+#define PMC_BASE                ((uint32_t)0x4007D000)
 #define GPIOA_BASE              ((uint32_t)0x400FF000)
 #define GPIOB_BASE              ((uint32_t)0x400FF040)
 #define GPIOC_BASE              ((uint32_t)0x400FF080)
@@ -524,6 +545,7 @@ typedef struct {
 /****************************************************************/
 #define DMA                     ((DMA_TypeDef *)     DMA_BASE)
 #define DMAMUX                  ((DMAMUX_TypeDef *)  DMAMUX_BASE)
+#define PIT                     ((PIT_TypeDef *)     PIT_BASE)
 #define FTM0                    ((FTM_TypeDef *)     FTM0_BASE)
 #define FTM1                    ((FTM_TypeDef *)     FTM1_BASE)
 #define ADC0                    ((ADC_TypeDef *)     ADC0_BASE)
@@ -531,6 +553,7 @@ typedef struct {
 #define TSI0                    ((TSI_TypeDef *)     TSI0_BASE)
 #define SIM                     ((SIM_TypeDef  *)    SIM_BASE)
 #define LLWU                    ((LLWU_TypeDef  *)   LLWU_BASE)
+#define PMC                     ((PMC_TypeDef  *)    PMC_BASE)
 #define PORTA                   ((PORT_TypeDef  *)   PORTA_BASE)
 #define PORTB                   ((PORT_TypeDef  *)   PORTB_BASE)
 #define PORTC                   ((PORT_TypeDef  *)   PORTC_BASE)
@@ -1263,6 +1286,28 @@ typedef struct {
 
 /****************************************************************/
 /*                                                              */
+/*                 Periodic Interrupt Timer (PIT)               */
+/*                                                              */
+/****************************************************************/
+/* MCR Bit Fields */
+#define PIT_MCR_FRZ                              0x1u
+#define PIT_MCR_MDIS                             0x2u
+/* LDVAL Bit Fields */
+#define PIT_LDVAL_TSV_MASK                       0xFFFFFFFFu
+#define PIT_LDVAL_TSV_SHIFT                      0
+#define PIT_LDVAL_TSV(x)                         (((uint32_t)(((uint32_t)(x))<<PIT_LDVAL_TSV_SHIFT))&PIT_LDVAL_TSV_MASK)
+/* CVAL Bit Fields */
+#define PIT_CVAL_TVL_MASK                        0xFFFFFFFFu
+#define PIT_CVAL_TVL_SHIFT                       0
+#define PIT_CVAL_TVL(x)                          (((uint32_t)(((uint32_t)(x))<<PIT_CVAL_TVL_SHIFT))&PIT_CVAL_TVL_MASK)
+/* TCTRL Bit Fields */
+#define PIT_TCTRL_TEN                            0x1u
+#define PIT_TCTRL_TIE                            0x2u
+/* TFLG Bit Fields */
+#define PIT_TFLG_TIF                             0x1u
+
+/****************************************************************/
+/*                                                              */
 /*              Analog-to-Digital Converter (ADC)               */
 /*                                                              */
 /****************************************************************/
@@ -1776,6 +1821,32 @@ typedef struct {
 #define UARTx_PFIFO_RXFIFOSIZE_SHIFT 0
 #define UARTx_PFIFO_RXFIFOSIZE_MASK  ((uint8_t)((uint8_t)0x7 << UARTx_PFIFO_RXFIFOSIZE_SHIFT))
 #define UARTx_PFIFO_RXFIFOSIZE(x)    ((uint8_t)(((uint8_t)(x) << UARTx_PFIFO_RXFIFOSIZE_SHIFT) & UARTx_PFIFO_RXFIFOSIZE_MASK))  /*!< Receive FIFO Buffer depth */
+
+/****************************************************************/
+/*                                                              */
+/*             Power Management Controller (PMC)                */
+/*                                                              */
+/****************************************************************/
+/*********  Bits definition for PMC_LVDSC1 register  *************/
+#define PMC_LVDSC1_LVDF               ((uint8_t)0x80)   /*!< Low-Voltage Detect Flag */
+#define PMC_LVDSC1_LVDACK             ((uint8_t)0x40)   /*!< Low-Voltage Detect Acknowledge */
+#define PMC_LVDSC1_LVDIE              ((uint8_t)0x20)   /*!< Low-Voltage Detect Interrupt Enable */
+#define PMC_LVDSC1_LVDRE              ((uint8_t)0x10)   /*!< Low-Voltage Detect Reset Enable */
+#define PMC_LVDSC1_LVDV_MASK          ((uint8_t)0x3)    /*!< Low-Voltage Detect Voltage Select */
+#define PMC_LVDSC1_LVDV_SHIFT         0
+#define PMC_LVDSC1_LVDV(x)            (((uint8_t)(((uint8_t)(x))<<PMC_LVDSC1_LVDV_SHIFT))&PMC_LVDSC1_LVDV_MASK)
+/*********  Bits definition for PMC_LVDSC1 register  *************/
+#define PMC_LVDSC2_LVWF               ((uint8_t)0x80)   /*!< Low-Voltage Warning Flag */
+#define PMC_LVDSC2_LVWACK             ((uint8_t)0x40)   /*!< Low-Voltage Warning Acknowledge */
+#define PMC_LVDSC2_LVWIE              ((uint8_t)0x20)   /*!< Low-Voltage Warning Interrupt Enable */
+#define PMC_LVDSC2_LVWV_MASK          0x3               /*!< Low-Voltage Warning Voltage Select */
+#define PMC_LVDSC2_LVWV_SHIFT         0
+#define PMC_LVDSC2_LVWV(x)            (((uint8_t)(((uint8_t)(x))<<PMC_LVDSC2_LVWV_SHIFT))&PMC_LVDSC2_LVWV_MASK)
+/*********  Bits definition for PMC_REGSC register  *************/
+#define PMC_REGSC_BGEN                ((uint8_t)0x10)   /*!< Bandgap Enable In VLPx Operation */
+#define PMC_REGSC_ACKISO              ((uint8_t)0x8)    /*!< Acknowledge Isolation */
+#define PMC_REGSC_REGONS              ((uint8_t)0x4)    /*!< Regulator In Run Regulation Status */
+#define PMC_REGSC_BGBE                ((uint8_t)0x1)    /*!< Bandgap Buffer Enable */
 
 /****************************************************************/
 /*                                                              */
