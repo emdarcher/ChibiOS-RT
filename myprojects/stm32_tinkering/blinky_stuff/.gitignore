@@ -1,0 +1,7 @@
+*.o
+*.lst
+*.elf
+*.d
+*.hex
+*.ihex
+*.bin
