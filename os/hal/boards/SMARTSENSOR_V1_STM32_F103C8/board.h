@@ -55,7 +55,24 @@
 /*
  * IO pins assignments.
  */
-/* Missing.*/
+
+enum {
+GPIOA_PA0,GPIOA_PA1,GPIOA_PA2,GPIOA_PA3,GPIOA_PA4,GPIOA_PA5,GPIOA_PA6,GPIOA_PA7,
+GPIOA_PA8,GPIOA_PA9,GPIOA_PA10,GPIOA_PA11,GPIOA_PA12,GPIOA_PA13,GPIOA_PA14,GPIOA_PA15,
+}
+
+enum {
+GPIOB_PB0,GPIOB_PB1,GPIOB_PB2,GPIOB_PB3,GPIOB_PB4,GPIOB_PB5,GPIOB_PB6,GPIOB_PB7,
+GPIOB_PB8,GPIOB_PB9,GPIOB_PB10,GPIOB_PB11,GPIOB_PB12,GPIOB_PB13,GPIOB_PB14,GPIOB_PB15,
+}
+#define GPIOC_PC13_TAMPER_RTC 	13
+#define GPIOC_PC14_OSC32_IN 	14
+#define GPIOC_PC15_OSC32_OUT 	15	
+
+enum {
+GPIOD_PD0_OSC_IN,
+GPIOD_PD1_OSC_OUT,
+}
 
 /*
  * I/O ports initial setup, this configuration is established soon after reset
@@ -88,17 +105,21 @@
  * PA3  - Normal input      (USART2 RX).
  * PA9  - Alternate output  (USART1 TX).
  * PA10 - Normal input      (USART1 RX).
+ * 
+ *  * PA13 - Pull-up input             (GPIOA_SWDIO).
+ * PA14 - Pull-down input           (GPIOA_SWCLK)
  */
 #define VAL_GPIOACRL            0x88884B88      /*  PA7...PA0 */
 #define VAL_GPIOACRH            0x888884B8      /* PA15...PA8 */
-#define VAL_GPIOAODR            0xFFFFFFFF
+#define VAL_GPIOAODR            0xFFFFBFFF
 
 /*
  * Port B setup.
  * Everything input with pull-up except:
- * PB1  - Push Pull output  (LED).
+ *  //PB1  - Push Pull output  (LED).
+ *  PB3  - Pull-up input             (GPIOA_SWO).
  */
-#define VAL_GPIOBCRL            0x88888838      /*  PB7...PB0 */
+#define VAL_GPIOBCRL            0x88888888      /*  PB7...PB0 */
 #define VAL_GPIOBCRH            0x88888888      /* PB15...PB8 */
 #define VAL_GPIOBODR            0xFFFFFFFF
 
@@ -131,12 +152,12 @@
 /*
  * USB bus activation macro, required by the USB driver.
  */
-#define usb_lld_connect_bus(usbp) palClearPad(GPIOC, GPIOC_USB_DISC)
+#define usb_lld_connect_bus(usbp) //palClearPad(GPIOC, GPIOC_USB_DISC)
 
 /*
  * USB bus de-activation macro, required by the USB driver.
  */
-#define usb_lld_disconnect_bus(usbp) palSetPad(GPIOC, GPIOC_USB_DISC)
+#define usb_lld_disconnect_bus(usbp) //palSetPad(GPIOC, GPIOC_USB_DISC)
 
 #if !defined(_FROM_ASM_)
 #ifdef __cplusplus
