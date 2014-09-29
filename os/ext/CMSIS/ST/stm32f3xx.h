@@ -1,15 +1,15 @@
 /**
   ******************************************************************************
-  * @file    stm32f0xx.h
+  * @file    stm32f3xx.h
   * @author  MCD Application Team
   * @version V2.0.1
   * @date    18-June-2014
-  * @brief   CMSIS STM32F0xx Device Peripheral Access Layer Header File.           
+  * @brief   CMSIS STM32F3xx Device Peripheral Access Layer Header File.           
   *            
   *          The file is the unique include file that the application programmer
   *          is using in the C source code, usually in main.c. This file contains:
   *           - Configuration section that allows to select:
-  *              - The STM32F0xx device used in the target application
+  *              - The STM32F3xx device used in the target application
   *              - To use or not the peripheral’s drivers in application code(i.e. 
   *                code will be based on direct access to peripheral’s registers 
   *                rather than drivers API), this option is controlled by 
@@ -49,12 +49,12 @@
   * @{
   */
 
-/** @addtogroup stm32f0xx
+/** @addtogroup stm32f3xx
   * @{
   */
     
-#ifndef __STM32F0xx_H
-#define __STM32F0xx_H
+#ifndef __STM32F3xx_H
+#define __STM32F3xx_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -68,22 +68,27 @@
    application 
   */
 
-#if !defined (STM32F030x6) && !defined (STM32F030x8) &&                           \
-    !defined (STM32F031x6) && !defined (STM32F038xx) &&                           \
-    !defined (STM32F042x6) && !defined (STM32F048xx) &&                           \
-    !defined (STM32F051x8) && !defined (STM32F058xx) &&                           \
-    !defined (STM32F071xB) && !defined (STM32F072xB) && !defined (STM32F078xx)
-  /* #define STM32F030x6 */  /*!< STM32F030x4, STM32F030x6 Devices (STM32F030xx microcontrollers where the Flash memory ranges between 16 and 32 Kbytes)              */
-  /* #define STM32F030x8 */  /*!< STM32F030x8 Devices (STM32F030xx microcontrollers where the Flash memory is 64 Kbytes)                                              */
-  /* #define STM32F031x6 */  /*!< STM32F031x4, STM32F031x6 Devices (STM32F031xx microcontrollers where the Flash memory ranges between 16 and 32 Kbytes)              */
-  /* #define STM32F038xx */  /*!< STM32F038xx Devices (STM32F038xx microcontrollers where the Flash memory is 32 Kbytes)                                              */
-  /* #define STM32F042x6 */  /*!< STM32F042x4, STM32F042x6 Devices (STM32F042xx microcontrollers where the Flash memory ranges between 16 and 32 Kbytes)              */
-  /* #define STM32F048x6 */  /*!< STM32F048xx Devices (STM32F042xx microcontrollers where the Flash memory is 32 Kbytes)                                              */
-  /* #define STM32F051x8 */  /*!< STM32F051x4, STM32F051x6, STM32F051x8 Devices (STM32F051xx microcontrollers where the Flash memory ranges between 16 and 64 Kbytes) */
-  /* #define STM32F058xx */  /*!< STM32F058xx Devices (STM32F058xx microcontrollers where the Flash memory is 64 Kbytes)                                              */
-  /* #define STM32F071xB */  /*!< STM32F071x8, STM32F071xB Devices (STM32F071xx microcontrollers where the Flash memory ranges between 64 and 128 Kbytes)             */
-  /* #define STM32F072xB */  /*!< STM32F072x8, STM32F072xB Devices (STM32F072xx microcontrollers where the Flash memory ranges between 64 and 128 Kbytes)             */
-  /* #define STM32F078xx */  /*!< STM32F078xx Devices (STM32F078xx microcontrollers where the Flash memory is 128 Kbytes)                                             */
+#if !defined (STM32F301x8) && !defined (STM32F318xx) && \
+    !defined (STM32F302x8) && !defined (STM32F302xC) && \
+    !defined (STM32F303x8) &&                           \
+    !defined (STM32F303xC) && !defined (STM32F358xx) && \
+    !defined (STM32F373xC) && !defined (STM32F378xx) && \
+    !defined (STM32F334x8) && !defined (STM32F328xx)
+  /* #define STM32F301x8 */   /*!< STM32F301K6, STM32F301K8, STM32F301C6, STM32F301C8,
+                                   STM32F301R6 and STM32F301R8 Devices */
+  /* #define STM32F302x8 */   /*!< STM32F302K6, STM32F302K8, STM32F302C6, STM32F302C8,
+                                   STM32F302R6 and STM32F302R8 Devices */
+  /* #define STM32F302xC */   /*!< STM32F302CB, STM32F302CC, STM32F302RB, STM32F302RC, STM32F302VB and STM32F302VC Devices */
+  /* #define STM32F303x8 */   /*!< STM32F303K6, STM32F303K8, STM32F303C6, STM32F303C8, 
+                                   STM32F303R6 and STM32F303R8 Devices */
+  /* #define STM32F303xC */   /*!< STM32F303CB, STM32F303CC, STM32F303RB, STM32F303RC, STM32F303VB and STM32F303VC Devices */
+  /* #define STM32F373xC */   /*!< STM32F373C8, STM32F373CB, STM32F373CC, STM32F373R8, STM32F373RB, STM32F373RC,
+                                   STM32F373V8, STM32F373VB and STM32F373VC Devices */
+  /* #define STM32F334x8 */   /*!< STM32F334C4, STM32F334C6, STM32F334C8, STM32F334R4, STM32F334R6 and STM32F334R8 Devices */
+  /* #define STM32F318xx */   /*!< STM32F318K8, STM32F318C8: STM32F301x8 with regulator off: STM32F318xx Devices */
+  /* #define STM32F328xx */   /*!< STM32F328C8, STM32F328R8: STM32F334x8 with regulator off: STM32F328xx Devices */
+  /* #define STM32F358xx */   /*!< STM32F358CC, STM32F358RC, STM32F358VC: STM32F303xC with regulator off: STM32F358xx Devices */
+  /* #define STM32F378xx */   /*!< STM32F378CC, STM32F378RC, STM32F378VC: STM32F373xC with regulator off: STM32F378xx Devices */
 #endif
    
 /*  Tip: To avoid modifying this file each time you need to switch between these
@@ -101,14 +106,14 @@
 /**
   * @brief CMSIS Device version number V2.0.1
   */
-#define __STM32F0xx_CMSIS_DEVICE_VERSION_MAIN   (0x02) /*!< [31:24] main version */
-#define __STM32F0xx_CMSIS_DEVICE_VERSION_SUB1   (0x00) /*!< [23:16] sub1 version */
-#define __STM32F0xx_CMSIS_DEVICE_VERSION_SUB2   (0x01) /*!< [15:8]  sub2 version */
-#define __STM32F0xx_CMSIS_DEVICE_VERSION_RC     (0x00) /*!< [7:0]  release candidate */ 
-#define __STM32F0xx_CMSIS_DEVICE_VERSION        ((__CMSIS_DEVICE_VERSION_MAIN     << 24)\
-                                                |(__CMSIS_DEVICE_HAL_VERSION_SUB1 << 16)\
-                                                |(__CMSIS_DEVICE_HAL_VERSION_SUB2 << 8 )\
-                                                |(__CMSIS_DEVICE_HAL_VERSION_RC))
+#define __STM32F3xx_CMSIS_DEVICE_VERSION_MAIN   (0x02) /*!< [31:24] main version */                                  
+#define __STM32F3xx_CMSIS_DEVICE_VERSION_SUB1   (0x00) /*!< [23:16] sub1 version */
+#define __STM32F3xx_CMSIS_DEVICE_VERSION_SUB2   (0x01) /*!< [15:8]  sub2 version */
+#define __STM32F3xx_CMSIS_DEVICE_VERSION_RC     (0x00) /*!< [7:0]  release candidate */
+#define __STM32F3xx_CMSIS_DEVICE_VERSION        ((__CMSIS_DEVICE_VERSION_MAIN     << 24)\
+                                      |(__CMSIS_DEVICE_HAL_VERSION_SUB1 << 16)\
+                                      |(__CMSIS_DEVICE_HAL_VERSION_SUB2 << 8 )\
+                                      |(__CMSIS_DEVICE_HAL_VERSION_RC))
                                              
 /**
   * @}
@@ -118,30 +123,30 @@
   * @{
   */
 
-#if defined(STM32F030x6)
-  #include "stm32f030x6.h"
-#elif defined(STM32F030x8)
-  #include "stm32f030x8.h"
-#elif defined(STM32F031x6)
-  #include "stm32f031x6.h"
-#elif defined(STM32F038xx)
-  #include "stm32f038xx.h"
-#elif defined(STM32F042x6)
-  #include "stm32f042x6.h"
-#elif defined(STM32F048xx)
-  #include "stm32f048xx.h"
-#elif defined(STM32F051x8)
-  #include "stm32f051x8.h"
-#elif defined(STM32F058xx)
-  #include "stm32f058xx.h"
-#elif defined(STM32F071xB)
-  #include "stm32f071xb.h"
-#elif defined(STM32F072xB)
-  #include "stm32f072xb.h"
-#elif defined(STM32F078xx)
-  #include "stm32f078xx.h"
+#if defined(STM32F301x8)
+  #include "stm32f301x8.h"
+#elif defined(STM32F302x8)
+  #include "stm32f302x8.h"
+#elif defined(STM32F302xC)
+  #include "stm32f302xc.h"
+#elif defined(STM32F303x8)
+  #include "stm32f303x8.h"
+#elif defined(STM32F303xC)
+  #include "stm32f303xc.h"
+#elif defined(STM32F373xC)
+  #include "stm32f373xc.h"
+#elif defined(STM32F334x8)
+  #include "stm32f334x8.h"
+#elif defined(STM32F318xx)
+  #include "stm32f318xx.h"
+#elif defined(STM32F328xx)
+  #include "stm32f328xx.h"
+#elif defined(STM32F358xx)
+  #include "stm32f358xx.h"
+#elif defined(STM32F378xx)
+  #include "stm32f378xx.h"
 #else
- #error "Please select first the target STM32F0xx device used in your application (in stm32f0xx.h file)"
+ #error "Please select first the target STM32F3xx device used in your application (in stm32f3xx.h file)"
 #endif
 
 /**
@@ -195,20 +200,21 @@ typedef enum
 #define POSITION_VAL(VAL)     (__CLZ(__RBIT(VAL))) 
 
 
+#if defined (USE_HAL_DRIVER)
+ #include "stm32f3xx_hal.h"
+#endif /* USE_HAL_DRIVER */
+
+
 /**
   * @}
   */
-
-#if defined (USE_HAL_DRIVER)
- #include "stm32f0xx_hal.h"
-#endif /* USE_HAL_DRIVER */
 
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* __STM32F0xx_H */
+#endif /* __STM32F3xx_H */
 /**
   * @}
   */
